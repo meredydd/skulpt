@@ -22,6 +22,8 @@ Sk.ffi.remapToPy = function (obj) {
             arr.push(Sk.ffi.remapToPy(obj[i]));
         }
         return new Sk.builtin.list(arr);
+    } else if (obj === null) {
+        return Sk.builtin.none.none$;
     } else if (typeof obj === "object") {
         kvs = [];
         for (k in obj) {
@@ -84,6 +86,8 @@ Sk.ffi.remapToJs = function (obj) {
         return Sk.builtin.asnum$(obj);
     } else if (typeof obj === "number" || typeof obj === "boolean") {
         return obj;
+    } else if (obj instanceof Sk.builtin.none) {
+        return null;
     } else {
         return obj.v;
     }
