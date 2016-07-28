@@ -9,6 +9,8 @@ var $builtinmodule = function (name) {
     }
     sys.argv = new Sk.builtins["list"](args);
 
+    sys.byteorder = new Sk.builtin.str("little");
+
     sys.copyright = Sk.builtin["str"]("Copyright 2009-2010 Scott Graham.\nAll Rights Reserved.\n");
 
     sys.maxint = new Sk.builtin.int_(Math.pow(2,53)-1);
