@@ -1929,7 +1929,7 @@ Compiler.prototype.vstmt = function (s) {
         case ClassDef:
             this.cclass(s);
             break;
-        case Return_:
+        case Return:
             if (this.u.ste.blockType !== FunctionBlock) {
                 throw new SyntaxError("'return' outside function");
             }
@@ -1940,7 +1940,7 @@ Compiler.prototype.vstmt = function (s) {
                 out("return Sk.builtin.none.none$;");
             }
             break;
-        case Delete_:
+        case Delete:
             this.vseqexpr(s.targets);
             break;
         case Assign:
@@ -1952,17 +1952,17 @@ Compiler.prototype.vstmt = function (s) {
             break;
         case AugAssign:
             return this.caugassign(s);
-        case For_:
+        case For:
             return this.cfor(s);
-        case While_:
+        case While:
             return this.cwhile(s);
-        case If_:
+        case If:
             return this.cif(s);
         case Raise:
             return this.craise(s);
         case Assert:
             return this.cassert(s);
-        case Import_:
+        case Import:
             return this.cimport(s);
         case ImportFrom:
             return this.cfromimport(s);
@@ -1973,18 +1973,18 @@ Compiler.prototype.vstmt = function (s) {
             break;
         case Pass:
             break;
-        case Break_:
+        case Break:
             if (this.u.breakBlocks.length === 0) {
                 throw new SyntaxError("'break' outside loop");
             }
             this._jump(this.u.breakBlocks[this.u.breakBlocks.length - 1]);
             break;
-        case Continue_:
+        case Continue:
             this.ccontinue(s);
             break;
-        case Debugger_:
-            out("debugger;");
-            break;
+        // case Debugger_:
+        //     out("debugger;");
+        //     break;
         default:
             goog.asserts.fail("unhandled case in vstmt");
     }
