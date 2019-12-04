@@ -114,11 +114,16 @@ Sk.setupObjects = function (py3) {
         Sk.builtins["filter"] = Sk.builtin.filter_;
         Sk.builtins["map"] = Sk.builtin.map_;
         Sk.builtins["zip"] = Sk.builtin.zip_;
+        delete Sk.builtins["unicode"];
+        Sk.builtins["bytes"] = Sk.builtin.bytes;
+        delete Sk.builtin.str.prototype.decode;
     } else {
         Sk.builtins["filter"] = new Sk.builtin.func(Sk.builtin.filter);
         Sk.builtins["map"] = new Sk.builtin.func(Sk.builtin.map);
         Sk.builtins["zip"] = new Sk.builtin.func(Sk.builtin.zip);
         Sk.builtins["unicode"] = Sk.builtin.str;
+        delete Sk.builtins["bytes"];
+        Sk.builtin.str.prototype.decode = Sk.builtin.bytes.prototype.decode;
     }
 };
 Sk.exportSymbol("Sk.setupObjects", Sk.setupObjects);
