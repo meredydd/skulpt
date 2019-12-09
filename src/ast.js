@@ -2610,7 +2610,6 @@ function fstring_parse(str, start, end, raw, recurse_lvl, c, n) {
             idx = endIdx;
         }
     }
-    Sk.asserts.assert(values.length != 0);
     return [new Sk.astnodes.JoinedStr(values, LINENO(n), n.col_offset), idx];
 }
 
