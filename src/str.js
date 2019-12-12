@@ -364,7 +364,11 @@ Sk.builtin.bytes.prototype.tp$iter = function() {
 
 Sk.builtin.str.prototype.tp$richcompare = Sk.builtin.bytes.prototype.tp$richcompare = function (other, op) {
     if (!(other instanceof this.__class__)) {
-        return undefined;
+        if (Sk.__future__.python3) {
+            return Sk.builtin.NotImplemented.NotImplemented$;
+        } else {
+            return false;
+        }
     }
 
     switch (op) {
