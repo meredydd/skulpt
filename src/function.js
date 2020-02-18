@@ -186,6 +186,11 @@ Sk.builtin.checkString = function (arg) {
 };
 Sk.exportSymbol("Sk.builtin.checkString", Sk.builtin.checkString);
 
+Sk.builtin.checkBytes = function (arg) {
+    return (arg !== null && arg.__class__ == (Sk.__future__.python3 ? Sk.builtin.bytes : Sk.builtin.str));
+};
+Sk.exportSymbol("Sk.builtin.checkBytes", Sk.builtin.checkBytes);
+
 Sk.builtin.checkClass = function (arg) {
     return (arg !== null && arg.sk$type);
 };
@@ -446,4 +451,18 @@ Sk.builtin.func.prototype["$r"] = function () {
     } else {
         return new Sk.builtin.str("<function " + name + ">");
     }
+};
+
+// a Python implementation of @staticmethod
+Sk.builtin.staticfunc = function() {
+    Sk.builtin.func.apply(this, arguments);
+};
+Sk.abstr.setUpInheritance("staticfunction", Sk.builtin.staticfunc, Sk.builtin.func);
+
+Sk.exportSymbol("Sk.builtin.staticfunc", Sk.builtin.staticfunc);
+
+Sk.builtin.staticfunc.prototype.tp$name = "staticmethod";
+
+Sk.builtin.staticfunc.prototype.tp$descr_get = function () {
+    return this;
 };
